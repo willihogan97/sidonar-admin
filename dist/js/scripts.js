@@ -20,3 +20,19 @@
         $("body").toggleClass("sb-sidenav-toggled");
     });
 })(jQuery);
+
+function setPengguna() {
+    pengguna = JSON.parse(localStorage.getItem("pengguna"))
+    penggunaNew = {
+        "nama": "William Adjandra",
+        "gol_darah": "AB (-)",
+        "email": "william@email.com",
+        "is_verified": false
+    }
+    pengguna.push(penggunaNew)
+    localStorage.setItem("pengguna", JSON.stringify(pengguna));
+}
+
+function getPengguna() {
+    return JSON.parse(localStorage.getItem("pengguna"))
+}
