@@ -19,6 +19,7 @@ function setPengguna() {
             "alamat": "Jln. asdasd",
             "no_telp": "08967123123",
             "no_telp_darurat": "08967123123",
+            "tgl_lahir": "11/07/97"
         };
         pengguna.push(penggunaNew);
     }
@@ -47,7 +48,6 @@ function deletePengguna(id) {
     allPengguna = JSON.parse(localStorage.getItem("pengguna"));
     for (var i = allPengguna.length - 1; i >= 0; i--) {
         if (((allPengguna[i].id)+"") == id) {
-            localStorage.setItem("deletePenggunaModalRow", i + 1);
             allPengguna.splice(i, 1);
         }
     }
@@ -76,8 +76,4 @@ function batalVerifikasiPengguna(id) {
         }
     }
     localStorage.setItem("pengguna", JSON.stringify(allPengguna));
-}
-
-function sayHi() {
-  alert('Hello');
 }

@@ -42,6 +42,7 @@ function setPenggunaTimer() {
             "alamat": "Jln. asdasd",
             "no_telp": "08967123123",
             "no_telp_darurat": "08967123123",
+            "tgl_lahir": "11/07/97"
         };
         pengguna.push(penggunaNew);
     }
@@ -55,9 +56,80 @@ function setPenggunaTimer() {
         "alamat": "Jln. asdasd",
         "no_telp": "08967123123",
         "no_telp_darurat": "08967123123",
+        "tgl_lahir": "11/07/97"
     };
     pengguna.push(penggunaNew);
     localStorage.setItem("hasNewPengguna", true);
     localStorage.setItem("lastPenggunaID", lastID+1);
     localStorage.setItem("pengguna", JSON.stringify(pengguna));
+}
+
+function setAll() {
+    if (localStorage.getItem("pengguna") == null) {
+        localStorage.setItem("pengguna", JSON.stringify([]));   
+    }
+    if (localStorage.getItem("faskes") == null) {
+        all_faskes = []
+         faskesNew = {
+            "id": 1,
+            "nama": "PMI Pusat",
+            "no_telp": "081215482",
+            "email": "team@pmi.co.id",
+            "alamat": "Jl. Kramat Raya No.47 DKI Jakarta"
+        }
+        all_faskes.push(faskesNew)
+        localStorage.setItem("lastFaskesID", 1);
+        localStorage.setItem("faskes", JSON.stringify(all_faskes));   
+    }
+    if (localStorage.getItem("event") == null) {
+        all_event = []
+        eventNew = {
+            "id": 1,
+            "nama": "Donor Darah Serentak 2020",
+            "penyelenggara": "PMI Jakarta",
+            "lokasi": "Jakarta Pusat",
+            "link_url": "http://utdpmidkijakarta.or.id/",
+            "gambar_path": ""
+        }
+        all_event.push(eventNew)
+        localStorage.setItem("lastEventID", 1);
+        localStorage.setItem("event", JSON.stringify(all_event));   
+    }
+    if (localStorage.getItem("gol_darah") == null) {
+        all_gol_darah = []
+        id = 1
+        for (var i = 0; i < 5; i++) {
+            gol_darah = {
+                "id": id,
+                "gol_darah": "A (+)",
+                "faskes": "PMI Pusat",
+                "no_telp": "081231321",
+                "alamat": "Jakarta Pusat",
+                "jumlah": "24 Kantong"
+            }
+            id++
+            all_gol_darah.push(gol_darah)
+            gol_darah = {
+                "id": id,
+                "gol_darah": "AB (+)",
+                "faskes": "PMI Pusat",
+                "no_telp": "081231321",
+                "alamat": "Jakarta Pusat",
+                "jumlah": "14 Kantong"
+            }
+            id++
+            all_gol_darah.push(gol_darah)
+            gol_darah = {
+                "id": id,
+                "gol_darah": "O (+)",
+                "faskes": "PMI Pusat",
+                "no_telp": "081231321",
+                "alamat": "Jakarta Pusat",
+                "jumlah": "10 Kantong"
+            }
+            id++
+            all_gol_darah.push(gol_darah)
+        }
+        localStorage.setItem("stok_darah", JSON.stringify(all_gol_darah));   
+    }
 }

@@ -11,51 +11,30 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <!-- START - include this script to access local storage function etc-->
-        <script src="./js/pengguna.js"></script>
+        <script src="./js/event.js"></script>
         <!-- END - include this script to access local storage function etc-->
         <script type="text/javascript">
             $(document).ready(function(){
                 const urlParams = new URLSearchParams(window.location.search);
                 var id = urlParams.get("id")
-                var pengguna = getPengguna(id)
-                
-                $("#delete-button").click(function(){
-                   deletePengguna(id)
-                   window.location.href="./pengguna.html";
+                var event = getFaskes(id)
+                $("#simpan-button").click(function(){
+                   updateFaskes(id,document.getElementById('nama').value, document.getElementById('penyelenggara').value, document.getElementById('lokasi').value, document.getElementById('link_url').value)
+                   window.location.href="./faskes.html";
                 });
 
-                $("#verif-kembali").click(function(){
-                   window.location.href="./pengguna.html";
+                $("#hapus-button").click(function(){
+                   deleteFaskes(id)
+                   window.location.href="./faskes.html";
                 });
 
                 $("#batal-kembali").click(function(){
-                   window.location.href="./pengguna.html";
+                   window.location.href="./faskes.html";
                 });
-
-                $("#verifikasi-button").click(function(){
-                   verifikasiPengguna(id)
-                });
-
-                $("#batal-verifikasi-button").click(function(){
-                   batalVerifikasiPengguna(id)
-                });
-                document.getElementById('nama').value = pengguna.nama
-                document.getElementById('email').value = pengguna.email
-                if (pengguna.alamat != null) {
-                    document.getElementById('alamat').value = pengguna.alamat
-                }
-                if (pengguna.no_telp != null) {
-                    document.getElementById('no_telp').value = pengguna.no_telp    
-                }
-                if (pengguna.no_telp_darurat != null) {
-                    document.getElementById('no_telp_darurat').value = pengguna.no_telp_darurat
-                }
-                if (pengguna.tgl_lahir != null) {
-                    document.getElementById('tgl_lahir').value = pengguna.tgl_lahir                    
-                }
-                document.getElementById('gol_darah').value = pengguna.gol_darah
-                document.getElementById('rhesus').value = pengguna.rhesus
-                document.getElementById('foto').value = "yosua.jpg"
+                document.getElementById('nama').value = event.nama
+                document.getElementById('penyelenggara').value = event.penyelenggara
+                document.getElementById('lokasi').value = event.lokasi
+                document.getElementById('link_url').value = event.link_url
             });
         </script>
     </head>
@@ -120,118 +99,102 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Pengguna</h1>
+                        <h1 class="mt-4">Fasilitas Kesehatan</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item"><a href="pengguna.html">Pengguna</a></li>
-                            <li class="breadcrumb-item active">Detail Pengguna</li>
+                            <li class="breadcrumb-item active">Fasilitas Kesehatan</li>
+                            <li class="breadcrumb-item active">Detail Fasilitas Kesehatan</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-header" style="font-size: 24px">
                                 <div class="row">
                                     <div class="col-4">
-                                        Detail Data Pengguna
-                                    </div>
-                                    <div class="col-8">
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" style="width: 150px; border-radius: 4px; float: right;">
-                                            Hapus
-                                        </button>
-                                        <!-- Modal Delet -->
-                                        <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                          <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                              <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                  <span aria-hidden="true">&times;</span>
-                                                </button>
-                                              </div>
-                                              <div class="modal-body" style="font-size: 16px">
-                                                Apakah anda yakin akan menghapus data pengguna
-                                              </div>
-                                              <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
-                                                <button type="button" class="btn btn-danger" id="delete-button">Hapus</button>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
+                                        Detail Data Fasilitas Kesehatan
                                     </div>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-4">
+                                    <div class="col-6">
                                         <div class="col">
                                             <div style="margin-bottom: 16px">
-                                                <label class="judul-profile" for="exampleInputEmail1">Nama</label>
-                                                <input type="text" class="form-control" id="nama" aria-describedby="emailHelp" disabled>
+                                                <label class="judul-profile" for="exampleInputEmail1">Nama Fasilitas Kesehatan</label>
+                                                <input type="text" class="form-control" id="nama" aria-describedby="emailHelp" >
                                             </div>    
                                         </div>
                                         <div style="margin-bottom: 16px" class="col">
                                             <div>
-                                                <label class="judul-profile" for="exampleInputEmail1">Email</label>
-                                                <input type="text" class="form-control" id="email" aria-describedby="emailHelp" disabled>
+                                                <label class="judul-profile" for="exampleInputEmail1">Nomor Telepon</label>
+                                                <input type="number" class="form-control" id="no_telp" aria-describedby="emailHelp" >
                                             </div>    
                                         </div>
                                         <div class="col">
-                                            <label style="float: left" class="judul-profile" for="exampleInputEmail1">Alamat</label>
-                                            <textarea class="form-control" id="alamat" rows="3" disabled></textarea>
+                                            <label style="float: left" class="judul-profile" for="exampleInputEmail1">Email</label>
+                                            <input type="text" class="form-control" id="email" aria-describedby="emailHelp" >
                                         </div>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-6">
+                                        <div style="margin-bottom: 16px" class="col">
+                                            <label style="float: left" class="judul-profile" for="exampleInputEmail1">Alamat</label>
+                                            <input type="text" class="form-control" id="alamat" aria-describedby="emailHelp" >
+                                        </div>
                                         <div class="col">
-                                            <div style="margin-bottom: 16px">
-                                                <label class="judul-profile" for="exampleInputEmail1">Golongan Darah & Rhesus</label>
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control" id="gol_darah" aria-describedby="emailHelp" disabled>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control" id="rhesus" aria-describedby="emailHelp" disabled>
-                                                    </div>    
+                                            <div class="row">
+                                                <div class="col" style="margin-bottom: 16px">
+                                                    <label style="float: left" class="judul-profile" for="exampleInputEmail1">Kecamatan</label>
+                                                    <select class="custom-select">
+                                                      <option selected>Masukkan Kecamatan</option>
+                                                      <option value="1">Kemayoran</option>
+                                                      <option value="2">Sawah Besar</option>
+                                                      <option value="3">Senen</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col" style="margin-bottom: 16px">
+                                                    <label style="float: left" class="judul-profile" for="exampleInputEmail1">Kecamatan</label>
+                                                    <select class="custom-select">
+                                                      <option selected>Masukkan Kota</option>
+                                                      <option value="1">Depok</option>
+                                                      <option value="2">Jakarta Pusat</option>
+                                                      <option value="3">Jakarta Barat</option>
+                                                    </select>
                                                 </div>
                                             </div>
-                                            <div style="margin-bottom: 16px">
-                                                <div>
-                                                    <label class="judul-profile" for="exampleInputEmail1">Tanggal Lahir</label>
-                                                    <input type="text" class="form-control" id="tgl_lahir" aria-describedby="emailHelp" disabled>
-                                                </div>    
-                                            </div>
-                                            <div style="margin-bottom: 16px">
-                                                <div>
-                                                    <label class="judul-profile" for="exampleInputEmail1">No Telepon</label>
-                                                    <input type="text" class="form-control" id="no_telp" aria-describedby="emailHelp" disabled>
-                                                </div>    
-                                            </div>
-                                            <div style="margin-bottom: 16px">
-                                                <div>
-                                                    <label class="judul-profile" for="exampleInputEmail1">No Telepon Darurat</label>
-                                                    <input type="text" class="form-control" id="no_telp_darurat" aria-describedby="emailHelp" disabled>
-                                                </div>    
-                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div style="margin-bottom: 16px">
-                                            <center>
-                                                <img src="./assets/img/yosua.jpg" alt="take_photo" style="width: 60%;">
-                                                <input type="text" class="form-control" id="foto" aria-describedby="emailHelp" disabled style="width: 60%; margin-top: 16px">
-                                            </center>
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col" style="margin-bottom: 16px">
+                                                    <label style="float: left" class="judul-profile" for="exampleInputEmail1">Provinsi</label>
+                                                    <select class="custom-select">
+                                                      <option selected>Masukkan Provinsi</option>
+                                                      <option value="1">DKI Jakarta</option>
+                                                      <option value="2">Jawa Barat</option>
+                                                      <option value="3">Jawa Tengah</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col" style="margin-bottom: 16px">
+                                                    <label style="float: left" class="judul-profile" for="exampleInputEmail1">Kode Post</label>
+                                                    <select class="custom-select">
+                                                      <option selected>Masukkan Kode Post</option>
+                                                      <option value="1">10730</option>
+                                                      <option value="2">10740</option>
+                                                      <option value="3">10750</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer small text-muted">
-                                <button type="button" id="verifikasi-button" data-toggle="modal" data-target="#modalVerif" class="btn btn-primary" style="width: 150px; border-radius: 4px; margin-right: 16px">
-                                    Verifikasi
+                                <button type="button" data-toggle="modal" data-target="#modalSimpan" class="btn btn-primary" style="width: 150px; border-radius: 4px; margin-left: 16px; float: right;">
+                                    Simpan
                                 </button>
                                 <!-- Modal verif -->
-                                <div class="modal fade" id="modalVerif" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="modalSimpan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                   <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                       <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Data Berhasil Diverifikasi</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Simpan Perubahan</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span>
                                         </button>
@@ -242,26 +205,26 @@
                                             <img src="./assets/icon/terverifikasi.svg" style="height:90px">
                                         </div>
                                         <div>
-                                            Sistem SI Donar akan menyimpan data pengguna    
+                                            Apakah anda yakin akan menyimpan data Event Donor Darah
                                         </div>
                                         </center>
                                       </div>
                                       <div class="modal-footer">
-                                        <button type="button" class="btn btn-outline-dark" data-dismiss="modal" id="verif-kembali">Kembali</button>
-                                        <!-- <button type="button" class="btn btn-danger">Hapus</button> -->
+                                        <button type="button" class="btn btn-outline-dark" data-dismiss="modal" id="verif-kembali">Tidak</button>
+                                        <button type="button" class="btn btn-primary" id="simpan-button">Simpan</button>
                                       </div>
                                     </div>
                                   </div>
                                 </div>
-                                <button type="button" id="batal-verifikasi-button" data-toggle="modal" data-target="#modalTidakVerif" class="btn btn-outline-dark" style="width: 150px; border-radius: 4px;">
-                                    Lengkapi Data
+                                <button type="button" id="batal-verifikasi-button" data-toggle="modal" data-target="#modalHapus" class="btn btn-outline-dark" style="width: 150px; border-radius: 4px; float: right;">
+                                    Hapus
                                 </button>
                                 <!-- Modal batal -->
-                                <div class="modal fade" id="modalTidakVerif" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="modalHapus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                   <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                       <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Data Tidak Terverifikasi</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span>
                                         </button>
@@ -269,16 +232,16 @@
                                       <div class="modal-body" style="font-size: 16px">
                                         <center>
                                         <div>
-                                            <img src="./assets/icon/tidak_terverifikasi.svg" style="height:90px">
+                                            <img src="./assets/icon/terverifikasi.svg" style="height:90px">
                                         </div>
                                         <div>
-                                            Sistem SI Donar akan mengirim notifikasi kepada pengguna untuk melengkapi data
+                                            Apakah anda yakin akan menghapus data Event Donor Darah
                                         </div>
                                         </center>
                                       </div>
                                       <div class="modal-footer">
-                                        <button type="button" class="btn btn-outline-dark" data-dismiss="modal" id="batal-kembali">Kembali</button>
-                                        <!-- <button type="button" class="btn btn-danger">Hapus</button> -->
+                                        <button type="button" class="btn btn-outline-dark" data-dismiss="modal" id="verif-kembali">Tidak</button>
+                                        <button type="button" class="btn btn-danger" id="hapus-button">Hapus</button>
                                       </div>
                                     </div>
                                   </div>

@@ -12,15 +12,13 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <!-- START - include this script to access local storage function etc-->
-        <script src="./js/pengguna.js"></script>
+        <script src="./js/event.js"></script>
         <!-- END - include this script to access local storage function etc-->
         <script>
             $(document).ready(function(){
-                
-                setPengguna();
-                var allPengguna = getAllPengguna();
+                var allEvent = getAllEvent();
                 $("#delete-button").click(function(){
-                   deletePengguna()
+                   deleteEvent()
                    var table = $('#dataTable').DataTable();
                     var rows = table
                         .rows( '.selectedDeleted' )
@@ -29,30 +27,21 @@
                    // var table = document.getElementById("dataTable");
                    // table.deleteRow(parseInt(localStorage.getItem("deletePenggunaModalRow")));
                 });
-                for (var i = 0; i < allPengguna.length; i++) {
-                    verif_html = ""
-                    if (allPengguna[i].is_verified) {
-                        verif_html = `<div class="col-8">Terverifikasi</div>
-                                    <div class="col-4" style="padding-bottom: 4px"><img src="./assets/icon/terverifikasi.svg"></div>`
-                    } else {
-                        verif_html = `<div class="col-8">Belum terverifikasi</div>
-                                        <div class="col-4" style="padding-bottom: 4px"><img src="./assets/icon/belum_terverifikasi.svg"></div>`
-                    }
+                $("#tambah-button").click(function(){
+                   window.location.href="./tambah-event.html";
+                });
+                for (var i = 0; i < allEvent.length; i++) {
                     $("#pengguna").append(`
                         <tr>
-                            <td>`+ allPengguna[i].id + `</td>
-                            <td>`+ allPengguna[i].nama +`</td>
-                            <td>`+ allPengguna[i].gol_darah + ` (` + allPengguna[i].rhesus +`)</td>
-                            <td>`+ allPengguna[i].email +`</td>
+                            <td>`+ allEvent[i].id + `</td>
+                            <td>`+ allEvent[i].nama +`</td>
+                            <td>`+ allEvent[i].lokasi +`</td>
+                            <td>`+ allEvent[i].penyelenggara +`</td>
                             <td>
                                 <div class="row">
-                                    ` + verif_html + `
-                                </div>
-                            </td>
-                            <td>
-                                <div class="row">
-                                    <div style="padding-bottom: 4px; margin-right:8px; margin-left:8px" data-toggle="modal" data-target="#modalDelete" onclick="setDeleteId(`+ allPengguna[i].id +`);` +  `$(this).parent().parent().parent().addClass('selectedDeleted'); `+`"><img src="./assets/icon/cancel.svg" style="cursor:pointer;"></div>
-                                    <div style="padding-bottom: 4px"><a href="detail-pengguna.html?id=`+ allPengguna[i].id +`"><img src="./assets/icon/option.svg"></a></div>
+                                    <div style="padding-bottom: 4px; margin-left: 8px"><a href="detail-event.html?id=`+ allEvent[i].id +`"><img src="./assets/icon/option.svg"></a></div>
+                                    <div style="padding-bottom: 4px; margin-right:8px; margin-left:8px" data-toggle="modal" data-target="#modalDelete" onclick="setDeleteId(`+ allEvent[i].id +`);` +  `$(this).parent().parent().parent().addClass('selectedDeleted'); `+`"><img src="./assets/icon/cancel.svg" style="cursor:pointer;"></div>
+                                    <div style="padding-bottom: 4px; cursor: pointer;" data-toggle="modal" data-target="#modalShare"><img src="./assets/icon/share.svg"></div>
                                 </div>
                             </td>
                         </tr>`);
@@ -124,26 +113,27 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Pengguna</h1>
+                        <h1 class="mt-4">Event Donor Darah</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Pengguna</li>
+                            <li class="breadcrumb-item active">Event Donor Darah</li>
                         </ol>
                         <!-- <div class="card mb-4">
                             <div class="card-body">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>.</div>
                         </div> -->
                         <div class="card mb-4">
-                            <div class="card-header" style="font-size: 24px">Data Pengguna</div>
+                            <div class="card-header" style="font-size: 24px">
+                                <button type="button" class="btn btn-outline-primary" id="tambah-button">Tambah Data</button>
+                            </div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Nama Lengkap</th>
-                                                <th>Golongan Darah & Rhesus</th>
-                                                <th>Email</th>
-                                                <th>Status</th>
+                                                <th>Nama Event</th>
+                                                <th>Lokasi Event</th>
+                                                <th>Penyelenggara</th>
                                                 <th>Opsi</th>
                                             </tr>
                                         </thead>
@@ -158,6 +148,46 @@
                                             </tr>
                                         </tfoot> -->
                                         <tbody id="pengguna">
+                                            <!-- <tr>
+                                                <td>1</td>
+                                                <td>asdasd</td>
+                                                <td>qweqwe</td>
+                                                <td>12dasd</td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div style="padding-bottom: 4px; margin-left: 8px"><a href="detail-event.html?id=`+ allEvent[i].id +`"><img src="./assets/icon/option.svg"></a></div>
+                                                        <div style="padding-bottom: 4px; margin-right:8px; margin-left:8px" data-toggle="modal" data-target="#modalDelete" onclick="setDeleteId(`+ allEvent[i].id +`);` +  `$(this).parent().parent().parent().addClass('selectedDeleted'); `+`"><img src="./assets/icon/cancel.svg" style="cursor:pointer;"></div>
+                                                        <div style="padding-bottom: 4px; cursor: pointer;" data-toggle="modal" data-target="#modalShare"><img src="./assets/icon/share.svg"></div>
+                                                    </div>
+                                                </td>
+                                            </tr> -->
+                                            <!-- Modal verif -->
+                                            <div class="modal fade" id="modalShare" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                              <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                  <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Event Berhasil Disebarkan</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                      <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                  </div>
+                                                  <div class="modal-body" style="font-size: 16px">
+                                                    <center>
+                                                    <div>
+                                                        <img src="./assets/icon/terverifikasi.svg" style="height:90px">
+                                                    </div>
+                                                    <div>
+                                                        Sistem SI Donar akan memberikan notifikasi kepada pengguna tentang event donor darah
+                                                    </div>
+                                                    </center>
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal" id="verif-kembali">Kembali</button>
+                                                    <!-- <button type="button" class="btn btn-danger">Hapus</button> -->
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
                                             <!-- Modal Pengguna -->
                                             <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                               <div class="modal-dialog modal-dialog-centered" role="document">
@@ -169,7 +199,7 @@
                                                     </button>
                                                   </div>
                                                   <div class="modal-body" style="font-size: 16px">
-                                                    Apakah anda yakin akan menghapus data pengguna
+                                                    Apakah anda yakin akan menghapus data event
                                                   </div>
                                                   <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
