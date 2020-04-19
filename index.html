@@ -28,6 +28,10 @@
                 setTimeout(setPenggunaTimer, 5000);
                 setTimeout(() => document.getElementById('new_notif').hidden = false
                     , 5000);
+                setTimeout(() => allJumlah = getAllJumlah()
+                    , 5000);
+                setTimeout(() => document.getElementById('jumlah_pengguna').innerText = allJumlah[0]
+                    , 5000);
             });
         </script>
     </head>
