@@ -21,18 +21,43 @@
     });
 })(jQuery);
 
-function setPengguna() {
-    pengguna = JSON.parse(localStorage.getItem("pengguna"))
-    penggunaNew = {
-        "nama": "William Adjandra",
-        "gol_darah": "AB (-)",
-        "email": "william@email.com",
-        "is_verified": false
+function setPenggunaTimer() {
+    pengguna = JSON.parse(localStorage.getItem("pengguna"));
+    lastID = localStorage.getItem("lastPenggunaID");
+    if (lastID == null || lastID == NaN) {
+        lastID = 0;
+        localStorage.setItem("lastPenggunaID", lastID);
+    } else {
+        lastID = parseInt(lastID)
     }
-    pengguna.push(penggunaNew)
+    if (pengguna == null) {
+        pengguna = [];
+        penggunaNew = {
+            "id": lastID + 1,
+            "nama": "William Adjandra",
+            "gol_darah": "O",
+            "rhesus": "+",
+            "email": "william@email.com",
+            "is_verified": false,
+            "alamat": "Jln. asdasd",
+            "no_telp": "08967123123",
+            "no_telp_darurat": "08967123123",
+        };
+        pengguna.push(penggunaNew);
+    }
+    penggunaNew = {
+        "id": lastID + 1,
+        "nama": "William Adjandra",
+        "gol_darah": "AB",
+        "rhesus": "-",
+        "email": "william@email.com",
+        "is_verified": false,
+        "alamat": "Jln. asdasd",
+        "no_telp": "08967123123",
+        "no_telp_darurat": "08967123123",
+    };
+    pengguna.push(penggunaNew);
+    localStorage.setItem("hasNewPengguna", true);
+    localStorage.setItem("lastPenggunaID", lastID+1);
     localStorage.setItem("pengguna", JSON.stringify(pengguna));
-}
-
-function getPengguna() {
-    return JSON.parse(localStorage.getItem("pengguna"))
 }

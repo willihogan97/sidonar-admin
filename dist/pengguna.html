@@ -12,13 +12,19 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <!-- START - include this script to access local storage function etc-->
-        <script src="./js/scripts.js"></script>
+        <script src="./js/pengguna.js"></script>
         <!-- END - include this script to access local storage function etc-->
         <script>
             $(document).ready(function(){
+                
                 setPengguna();
-                var allPengguna = getPengguna();
-                for (var i = allPengguna.length - 1; i >= 0; i--) {
+                var allPengguna = getAllPengguna();
+                $("#delete-button").click(function(){
+                   deletePengguna()
+                   var table = document.getElementById("dataTable");
+                   table.deleteRow(parseInt(localStorage.getItem("deletePenggunaModalRow")));
+                });
+                for (var i = 0; i < allPengguna.length; i++) {
                     verif_html = ""
                     if (allPengguna[i].is_verified) {
                         verif_html = `<div class="col-8">Terverifikasi</div>
@@ -29,9 +35,9 @@
                     }
                     $("#pengguna").append(`
                         <tr>
-                            <td>`+ (i+1) + `</td>
+                            <td>`+ allPengguna[i].id + `</td>
                             <td>`+ allPengguna[i].nama +`</td>
-                            <td>`+ allPengguna[i].gol_darah +`</td>
+                            <td>`+ allPengguna[i].gol_darah + ` (` + allPengguna[i].rhesus +`)</td>
                             <td>`+ allPengguna[i].email +`</td>
                             <td>
                                 <div class="row">
@@ -40,12 +46,15 @@
                             </td>
                             <td>
                                 <div class="row">
-                                    <div class="col-2" style="padding-bottom: 4px"><img src="./assets/icon/cancel.svg"></div>
-                                    <a href="detail-pengguna.html?id=`+ (i+1) +`"><div class="col-2" style="padding-bottom: 4px"><img src="./assets/icon/option.svg"></div></a>
+                                    <div style="padding-bottom: 4px; margin-right:8px; margin-left:8px" data-toggle="modal" data-target="#modalDelete" onclick="setDeleteId(`+ allPengguna[i].id +`)"><img src="./assets/icon/cancel.svg" style="cursor:pointer;"></div>
+                                    <div style="padding-bottom: 4px"><a href="detail-pengguna.html?id=`+ allPengguna[i].id +`"><img src="./assets/icon/option.svg"></a></div>
                                 </div>
                             </td>
                         </tr>`);
                 }
+                // $('#dataTable').DataTable( {
+                //     "order": [[ 0, "desc" ]]
+                // } );
             });
         </script>
     </head>
@@ -144,6 +153,26 @@
                                             </tr>
                                         </tfoot> -->
                                         <tbody id="pengguna">
+                                            <!-- Modal Delet -->
+                                            <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                              <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                  <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                      <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                  </div>
+                                                  <div class="modal-body" style="font-size: 16px">
+                                                    Apakah anda yakin akan menghapus data pengguna
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="delete-button">Hapus</button>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
                                             <!-- <tr>
                                                 <td>1</td>
                                                 <td>William Adjandra</td>

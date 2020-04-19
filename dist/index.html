@@ -10,6 +10,15 @@
         <link href="css/styles.css" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <!-- START - include this script to access local storage function etc-->
+        <script src="./js/scripts.js"></script>
+        <!-- END - include this script to access local storage function etc-->
+        <script type="text/javascript">
+            setTimeout(setPenggunaTimer, 5000);
+            setTimeout(() => document.getElementById('new_notif').hidden = false
+                , 5000);
+        </script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -47,7 +56,7 @@
                             >
                             <a class="nav-link" href="pengguna.html"
                                 ><div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                                Pengguna</a
+                                Pengguna<img src="./assets/icon/new_notif.svg" style="margin-left: 24px" hidden id="new_notif"></a
                             ><a class="nav-link" href="event.html"
                                 ><div class="sb-nav-link-icon"><i class="fas fa-lightbulb"></i></div>
                                 Event Donor Darah</a
