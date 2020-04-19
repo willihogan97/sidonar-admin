@@ -16,7 +16,7 @@ function setPengguna() {
             "rhesus": "+",
             "email": "william@email.com",
             "is_verified": false,
-            "alamat": "Jln. asdasd",
+            "alamat": "Jl. Topi Saya Bundar No.8, Jakarta Selatan, DKI Jakarta",
             "no_telp": "08967123123",
             "no_telp_darurat": "08967123123",
             "tgl_lahir": "11/07/97"

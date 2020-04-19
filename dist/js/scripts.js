@@ -66,7 +66,37 @@ function setPenggunaTimer() {
 
 function setAll() {
     if (localStorage.getItem("pengguna") == null) {
-        localStorage.setItem("pengguna", JSON.stringify([]));   
+        allPengguna = []
+        penggunaNew = {
+            "id": 1,
+            "nama": "William Adjandra",
+            "gol_darah": "O",
+            "rhesus": "+",
+            "email": "william@email.com",
+            "is_verified": false,
+            "alamat": "Jl. Topi Saya Bundar No.8, Jakarta Selatan, DKI Jakarta",
+            "no_telp": "08987654321",
+            "no_telp_darurat": "08987654322",
+            "tgl_lahir": "11/07/97",
+            "gambar_path": "william.jpg"
+        };
+        allPengguna.push(penggunaNew)
+        penggunaNew = {
+            "id": 2,
+            "nama": "Yosua Bisma",
+            "gol_darah": "A",
+            "rhesus": "+",
+            "email": "yosua@email.com",
+            "is_verified": true,
+            "alamat": "Jl. Aku Anak Sehat No.8, Jakarta Selatan, DKI Jakarta",
+            "no_telp": "08123456789",
+            "no_telp_darurat": "08123456799",
+            "tgl_lahir": "15/10/97",
+            "gambar_path": "yosua.jpg"
+        };
+        allPengguna.push(penggunaNew)
+        localStorage.setItem("lastPenggunaID", 2);
+        localStorage.setItem("pengguna", JSON.stringify(allPengguna));   
     }
     if (localStorage.getItem("faskes") == null) {
         all_faskes = []
@@ -105,7 +135,7 @@ function setAll() {
                 "faskes": "PMI Pusat",
                 "no_telp": "081231321",
                 "alamat": "Jakarta Pusat",
-                "jumlah": "24 Kantong"
+                "jumlah": "24"
             }
             id++
             all_gol_darah.push(gol_darah)
@@ -115,7 +145,7 @@ function setAll() {
                 "faskes": "PMI Pusat",
                 "no_telp": "081231321",
                 "alamat": "Jakarta Pusat",
-                "jumlah": "14 Kantong"
+                "jumlah": "14"
             }
             id++
             all_gol_darah.push(gol_darah)
@@ -125,11 +155,29 @@ function setAll() {
                 "faskes": "PMI Pusat",
                 "no_telp": "081231321",
                 "alamat": "Jakarta Pusat",
-                "jumlah": "10 Kantong"
+                "jumlah": "10"
             }
             id++
             all_gol_darah.push(gol_darah)
         }
         localStorage.setItem("stok_darah", JSON.stringify(all_gol_darah));   
     }
+}
+
+function getAllJumlah() {
+    allJumlah = []
+    panjang_pengguna = JSON.parse(localStorage.getItem("pengguna")).length
+    allJumlah.push(panjang_pengguna)
+    panjang_event = JSON.parse(localStorage.getItem("event")).length
+    allJumlah.push(panjang_event)
+    panjang_faskes = JSON.parse(localStorage.getItem("faskes")).length
+    allJumlah.push(panjang_faskes)
+    total_stok = 0
+    stok_darah = JSON.parse(localStorage.getItem("stok_darah"))
+    for (var i = stok_darah.length - 1; i >= 0; i--) {
+        total_stok = total_stok + parseInt(stok_darah[i].jumlah);
+    }
+    allJumlah.push(0)
+    allJumlah.push(total_stok + "")
+    return allJumlah
 }
