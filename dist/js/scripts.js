@@ -162,6 +162,48 @@ function setAll() {
         }
         localStorage.setItem("stok_darah", JSON.stringify(all_gol_darah));   
     }
+    if (localStorage.getItem("donor") == null) {
+        all_donor = []
+        donor = {
+            "id": 1,
+            "id_donor": "DO01",
+            "tanggal": "24/04/2020",
+            "resipien": "Jacob",
+            "gol_darah": "A",
+            "rhesus": "+",
+            "deskripsi": "Kecelakaan",
+            "pendonor": "Larry",
+            "email_resipien": "jacob@email.com",
+            "email_pendonor": "larry@email.com",
+            "no_telp_resipien": "0815472353",
+            "no_telp_pendonor": "0815236134",
+            "faskes": "PMI Pusat",
+            "alamat_pendonor": "Jl. Kramat Raya No.90 DKI Jakarta",
+            "alamat_resipien": "Jl. Gunung Sahari Raya No.47 DKI Jakarta",
+            "gambar_path": "rossi.jpeg"
+        }
+        all_donor.push(donor);
+        donor = {
+            "id": 2,
+            "id_donor": "DO02",
+            "tanggal": "20/04/2020",
+            "resipien": "David",
+            "gol_darah": "O",
+            "rhesus": "+",
+            "deskripsi": "Operasi",
+            "pendonor": "Harry",
+            "email_resipien": "david@email.com",
+            "email_pendonor": "harry@email.com",
+            "no_telp_resipien": "081468513",
+            "no_telp_pendonor": "083654984",
+            "faskes": "PMI Jakarta Selatan",
+            "alamat_pendonor": "Jl. Topi Saya Lancip No.100, Jakarta Selatan, DKI Jakarta",
+            "alamat_resipien": "Jl. Topi Saya Bundar No.65B, Jakarta Selatan, DKI Jakarta",
+            "gambar_path": "operasi.jpg"
+        }
+        all_donor.push(donor);
+        localStorage.setItem("donor", JSON.stringify(all_donor));
+    }
 }
 
 function getAllJumlah() {
@@ -177,7 +219,8 @@ function getAllJumlah() {
     for (var i = stok_darah.length - 1; i >= 0; i--) {
         total_stok = total_stok + parseInt(stok_darah[i].jumlah);
     }
-    allJumlah.push(0)
+    panjang_donor = JSON.parse(localStorage.getItem("donor")).length
+    allJumlah.push(panjang_donor)
     allJumlah.push(total_stok + "")
     return allJumlah
 }

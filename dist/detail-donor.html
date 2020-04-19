@@ -6,88 +6,54 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Charts - SB Admin</title>
+        <title>Charts - SI Donar</title>
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <!-- START - include this script to access local storage function etc-->
-        <script src="./js/pengguna.js"></script>
+        <script src="./js/donor.js"></script>
         <!-- END - include this script to access local storage function etc-->
         <script type="text/javascript">
             $(document).ready(function(){
                 const urlParams = new URLSearchParams(window.location.search);
                 var id = urlParams.get("id")
-                var pengguna = getPengguna(id)
-                
-                $("#delete-button").click(function(){
-                   deletePengguna(id)
-                   window.location.href="./pengguna.html";
-                });
-
-                $("#verif-kembali").click(function(){
-                   window.location.href="./pengguna.html";
-                });
-
-                $("#batal-kembali").click(function(){
-                   window.location.href="./pengguna.html";
-                });
-
-                $("#verifikasi-button").click(function(){
-                   verifikasiPengguna(id)
-                });
-
-                $("#batal-verifikasi-button").click(function(){
-                   batalVerifikasiPengguna(id)
-                });
-                document.getElementById('nama').value = pengguna.nama
-                document.getElementById('email').value = pengguna.email
-                if (pengguna.alamat != null) {
-                    document.getElementById('alamat').value = pengguna.alamat
-                }
-                if (pengguna.no_telp != null) {
-                    document.getElementById('no_telp').value = pengguna.no_telp    
-                }
-                // if (pengguna.no_telp_darurat != null) {
-                //     document.getElementById('no_telp_darurat').value = pengguna.no_telp_darurat
-                // }
-                if (pengguna.tgl_lahir != null) {
-                    document.getElementById('tgl_lahir').value = pengguna.tgl_lahir                    
-                }
-                document.getElementById('gol_darah').value = pengguna.gol_darah
-                document.getElementById('rhesus').value = pengguna.rhesus
-                if (pengguna.gambar_path != null) {
-                    $("#foto-src").attr("src", "./assets/img/profile_photo_default/" + pengguna.gambar_path);
-                    document.getElementById('foto').value = pengguna.gambar_path
+                var donor = getDonor(id)
+                document.getElementById('id_donor').innerText = "ID : " + donor.id_donor
+                document.getElementById('nama_resipien').value = donor.resipien
+                document.getElementById('email_resipien').value = donor.email_resipien
+                document.getElementById('telp_resipien').value = donor.no_telp_resipien
+                document.getElementById('alamat_resipien').value = donor.alamat_resipien
+                document.getElementById('nama_pendonor').value = donor.pendonor
+                document.getElementById('email_pendonor').value = donor.email_pendonor
+                document.getElementById('telp_pendonor').value = donor.no_telp_pendonor
+                document.getElementById('alamat_pendonor').value = donor.alamat_pendonor
+                document.getElementById('tanggal').value = donor.tanggal
+                document.getElementById('gol_darah').value = donor.gol_darah
+                document.getElementById('rhesus').value = donor.rhesus
+                document.getElementById('faskes').value = donor.faskes
+                document.getElementById('deskripsi').value = donor.faskes
+                if (donor.gambar_path != null) {
+                    $("#foto-src").attr("src", "./assets/img/need_blood/" + donor.gambar_path);
+                    document.getElementById('foto').value = donor.gambar_path
                 } else {
-                    document.getElementById('foto').value = "Avatar.jpg"
+                    document.getElementById('foto').value = "lampiran.jpg"
                 }
-                document.getElementById('foto-ktp').value = "KTP.jpg"
             });
         </script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.html">Start Bootstrap</a><button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button
-            ><!-- Navbar Search-->
-            <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-                <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
-                    </div>
+            <a class="navbar-brand" href="index.html" style="color: #A4A6B3; margin-left: 20px">SI Donar</a><button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button
+            >
+            <div class="ml-auto row">
+                <h4 style="color: #A4A6B3;" class="col">
+                    Admin
+                </h4>
+                <div class="col" style="margin-top: 6px; margin-right: 16px">
+                    <!-- <i class="far fa-user-circle w3-xxlarge"></i> -->
+                    <img src="./assets/icon/admin.svg" alt="take_photo" id="foto-src" style="height: 30px;">
                 </div>
-            </form>
-            <!-- Navbar-->
-            <ul class="navbar-nav ml-auto ml-md-0">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">Settings</a><a class="dropdown-item" href="#">Activity Log</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="login.html">Logout</a>
-                    </div>
-                </li>
-            </ul>
+            </div>
         </nav>
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
@@ -117,51 +83,25 @@
                             >
                         </div>
                     </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Start Bootstrap
-                    </div>
                 </nav>
             </div>
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Pengguna</h1>
+                        <h1 class="mt-4">Data Permintaan Donor Darah</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item"><a href="pengguna.html">Pengguna</a></li>
-                            <li class="breadcrumb-item active">Detail Pengguna</li>
+                            <li class="breadcrumb-item"><a href="permintaan_donor_darah.html">Data Permintaan Donor Darah</a></li>
+                            <li class="breadcrumb-item active">Detail Data Permintaan Donor Darah</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-header" style="font-size: 24px">
-                                <div class="row">
-                                    <div class="col-4">
-                                        Detail Data Pengguna
+                                <div class="col">
+                                    <div class="row">
+                                        Detail Data Permintaan Donor Darah
                                     </div>
-                                    <div class="col-8">
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" style="width: 150px; border-radius: 4px; float: right;">
-                                            Hapus
-                                        </button>
-                                        <!-- Modal Delet -->
-                                        <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                          <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                              <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                  <span aria-hidden="true">&times;</span>
-                                                </button>
-                                              </div>
-                                              <div class="modal-body" style="font-size: 16px">
-                                                Apakah anda yakin akan menghapus data pengguna
-                                              </div>
-                                              <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
-                                                <button type="button" class="btn btn-danger" id="delete-button">Hapus</button>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
+                                    <div class="row">
+                                        <div id="id_donor"></div>
                                     </div>
                                 </div>
                             </div>
@@ -170,25 +110,33 @@
                                     <div class="col-4">
                                         <div class="col">
                                             <div style="margin-bottom: 16px">
-                                                <label class="judul-profile" for="exampleInputEmail1">Nama</label>
-                                                <input type="text" class="form-control" id="nama" aria-describedby="emailHelp" disabled>
+                                                <label class="judul-profile" for="exampleInputEmail1">Tanggal Permintaan</label>
+                                                <input type="text" class="form-control" id="tanggal" aria-describedby="emailHelp" disabled>
                                             </div>    
                                         </div>
                                         <div style="margin-bottom: 16px" class="col">
                                             <div>
-                                                <label class="judul-profile" for="exampleInputEmail1">Email</label>
-                                                <input type="text" class="form-control" id="email" aria-describedby="emailHelp" disabled>
+                                                <label class="judul-profile" for="exampleInputEmail1">Nama Resipien</label>
+                                                <input type="text" class="form-control" id="nama_resipien" aria-describedby="emailHelp" disabled>
                                             </div>    
                                         </div>
                                         <div style="margin-bottom: 16px" class="col">
                                             <div>
-                                                <label class="judul-profile" for="exampleInputEmail1">No Telepon</label>
-                                                <input type="text" class="form-control" id="no_telp" aria-describedby="emailHelp" disabled>
+                                                <label class="judul-profile" for="exampleInputEmail1">Email Resipien</label>
+                                                <input type="text" class="form-control" id="email_resipien" aria-describedby="emailHelp" disabled>
                                             </div>    
                                         </div>
-                                        <div class="col">
-                                            <label style="float: left" class="judul-profile" for="exampleInputEmail1">Alamat</label>
-                                            <textarea class="form-control" id="alamat" rows="4" disabled></textarea>
+                                        <div style="margin-bottom: 16px" class="col">
+                                            <div>
+                                                <label class="judul-profile" for="exampleInputEmail1">Nomor Telepon Resipien</label>
+                                                <input type="text" class="form-control" id="telp_resipien" aria-describedby="emailHelp" disabled>
+                                            </div>    
+                                        </div>
+                                        <div style="margin-bottom: 16px" class="col">
+                                            <div>
+                                                <label class="judul-profile" for="exampleInputEmail1">Alamat Resipien</label>
+                                                <input type="text" class="form-control" id="alamat_resipien" aria-describedby="emailHelp" disabled>
+                                            </div>    
                                         </div>
                                     </div>
                                     <div class="col-4">
@@ -206,95 +154,51 @@
                                             </div>
                                             <div style="margin-bottom: 16px">
                                                 <div>
-                                                    <label class="judul-profile" for="exampleInputEmail1">Tanggal Lahir</label>
-                                                    <input type="text" class="form-control" id="tgl_lahir" aria-describedby="emailHelp" disabled>
+                                                    <label class="judul-profile" for="exampleInputEmail1">Deskripsi</label>
+                                                    <input type="text" class="form-control" id="deskripsi" aria-describedby="emailHelp" disabled>
                                                 </div>    
                                             </div>
                                             <div style="margin-bottom: 16px">
                                                 <center>
-                                                    <img src="./assets/img/ktp_photo/ktp.png" alt="take_photo" id="foto-ktp-src" style="width: 60%;">
-                                                    <input type="text" class="form-control" id="foto-ktp" aria-describedby="emailHelp" disabled style="margin-top: 16px">
+                                                    <img src="./assets/img/take_photo.png" alt="take_photo" id="foto-src" style="height: 110px;">
+                                                    <input type="text" class="form-control" id="foto" aria-describedby="emailHelp" disabled style="margin-top: 8px">
                                                 </center>
                                             </div>
-                                            <!-- <div style="margin-bottom: 16px">
+                                            <div style="margin-bottom: 16px">
                                                 <div>
-                                                    <label class="judul-profile" for="exampleInputEmail1">No Telepon Darurat</label>
-                                                    <input type="text" class="form-control" id="no_telp_darurat" aria-describedby="emailHelp" disabled>
+                                                    <label class="judul-profile" for="exampleInputEmail1">Nama Faskes</label>
+                                                    <input type="text" class="form-control" id="faskes" aria-describedby="emailHelp" disabled>
                                                 </div>    
-                                            </div> -->
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-4">
-                                        <div style="margin-bottom: 16px">
-                                            <center>
-                                                <img src="./assets/img/yosua.jpg" alt="take_photo" id="foto-src" style="width: 60%;">
-                                                <input type="text" class="form-control" id="foto" aria-describedby="emailHelp" disabled style="margin-top: 16px">
-                                            </center>
+                                        <div style="margin-bottom: 16px" class="col">
+                                            <div>
+                                                <label class="judul-profile" for="exampleInputEmail1">Nama Pendonor</label>
+                                                <input type="text" class="form-control" id="nama_pendonor" aria-describedby="emailHelp" disabled>
+                                            </div>    
+                                        </div>
+                                        <div style="margin-bottom: 16px" class="col">
+                                            <div>
+                                                <label class="judul-profile" for="exampleInputEmail1">Email Pendonor</label>
+                                                <input type="text" class="form-control" id="email_pendonor" aria-describedby="emailHelp" disabled>
+                                            </div>    
+                                        </div>
+                                        <div style="margin-bottom: 16px" class="col">
+                                            <div>
+                                                <label class="judul-profile" for="exampleInputEmail1">Nomor Telepon Pendonor</label>
+                                                <input type="text" class="form-control" id="telp_pendonor" aria-describedby="emailHelp" disabled>
+                                            </div>    
+                                        </div>
+                                        <div class="col">
+                                            <label style="float: left" class="judul-profile" for="exampleInputEmail1">Alamat Pendonor</label>
+                                            <textarea class="form-control" id="alamat_pendonor" rows="4" disabled></textarea>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer small text-muted">
-                                <button type="button" id="verifikasi-button" data-toggle="modal" data-target="#modalVerif" class="btn btn-primary" style="width: 150px; border-radius: 4px; margin-right: 16px">
-                                    Verifikasi
-                                </button>
-                                <!-- Modal verif -->
-                                <div class="modal fade" id="modalVerif" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                  <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Data Berhasil Diverifikasi</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                        </button>
-                                      </div>
-                                      <div class="modal-body" style="font-size: 16px">
-                                        <center>
-                                        <div>
-                                            <img src="./assets/icon/terverifikasi.svg" style="height:90px">
-                                        </div>
-                                        <div>
-                                            Sistem SI Donar akan menyimpan data pengguna    
-                                        </div>
-                                        </center>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-outline-dark" data-dismiss="modal" id="verif-kembali">Kembali</button>
-                                        <!-- <button type="button" class="btn btn-danger">Hapus</button> -->
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                                <button type="button" id="batal-verifikasi-button" data-toggle="modal" data-target="#modalTidakVerif" class="btn btn-outline-dark" style="width: 150px; border-radius: 4px;">
-                                    Lengkapi Data
-                                </button>
-                                <!-- Modal batal -->
-                                <div class="modal fade" id="modalTidakVerif" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                  <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Data Tidak Terverifikasi</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                        </button>
-                                      </div>
-                                      <div class="modal-body" style="font-size: 16px">
-                                        <center>
-                                        <div>
-                                            <img src="./assets/icon/cancel.svg" style="height:90px">
-                                        </div>
-                                        <div>
-                                            Sistem SI Donar akan mengirim notifikasi kepada pengguna untuk melengkapi data
-                                        </div>
-                                        </center>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-outline-dark" data-dismiss="modal" id="batal-kembali">Kembali</button>
-                                        <!-- <button type="button" class="btn btn-danger">Hapus</button> -->
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
                             </div>
                         </div>
                         <!-- <div class="row">
