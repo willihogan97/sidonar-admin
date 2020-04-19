@@ -19,7 +19,7 @@
                 var id = urlParams.get("id")
                 var faskes = getFaskes(id)
                 $("#simpan-button").click(function(){
-                   setFaskes(document.getElementById('nama').value, document.getElementById('no_telp').value, document.getElementById('email').value, document.getElementById('alamat').value)
+                   updateFaskes(id, document.getElementById('nama').value, document.getElementById('no_telp').value, document.getElementById('email').value, document.getElementById('alamat').value)
                    window.location.href="./faskes.html";
                 });
 
