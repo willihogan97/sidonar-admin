@@ -21,8 +21,13 @@
                 var allPengguna = getAllPengguna();
                 $("#delete-button").click(function(){
                    deletePengguna()
-                   var table = document.getElementById("dataTable");
-                   table.deleteRow(parseInt(localStorage.getItem("deletePenggunaModalRow")));
+                   var table = $('#dataTable').DataTable();
+                    var rows = table
+                        .rows( '.selectedDeleted' )
+                        .remove()
+                        .draw();
+                   // var table = document.getElementById("dataTable");
+                   // table.deleteRow(parseInt(localStorage.getItem("deletePenggunaModalRow")));
                 });
                 for (var i = 0; i < allPengguna.length; i++) {
                     verif_html = ""
@@ -46,15 +51,15 @@
                             </td>
                             <td>
                                 <div class="row">
-                                    <div style="padding-bottom: 4px; margin-right:8px; margin-left:8px" data-toggle="modal" data-target="#modalDelete" onclick="setDeleteId(`+ allPengguna[i].id +`)"><img src="./assets/icon/cancel.svg" style="cursor:pointer;"></div>
+                                    <div style="padding-bottom: 4px; margin-right:8px; margin-left:8px" data-toggle="modal" data-target="#modalDelete" onclick="setDeleteId(`+ allPengguna[i].id +`);` +  `$(this).parent().parent().parent().addClass('selectedDeleted'); `+`"><img src="./assets/icon/cancel.svg" style="cursor:pointer;"></div>
                                     <div style="padding-bottom: 4px"><a href="detail-pengguna.html?id=`+ allPengguna[i].id +`"><img src="./assets/icon/option.svg"></a></div>
                                 </div>
                             </td>
                         </tr>`);
                 }
-                // $('#dataTable').DataTable( {
-                //     "order": [[ 0, "desc" ]]
-                // } );
+                $('#dataTable').DataTable( {
+                    "order": [[ 0, "desc" ]]
+                } );
             });
         </script>
     </head>
