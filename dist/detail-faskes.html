@@ -11,30 +11,25 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <!-- START - include this script to access local storage function etc-->
-        <script src="./js/event.js"></script>
+        <script src="./js/faskes.js"></script>
         <!-- END - include this script to access local storage function etc-->
         <script type="text/javascript">
             $(document).ready(function(){
                 const urlParams = new URLSearchParams(window.location.search);
                 var id = urlParams.get("id")
-                var event = getFaskes(id)
+                var faskes = getFaskes(id)
                 $("#simpan-button").click(function(){
-                   updateFaskes(id,document.getElementById('nama').value, document.getElementById('penyelenggara').value, document.getElementById('lokasi').value, document.getElementById('link_url').value)
-                   window.location.href="./faskes.html";
-                });
-
-                $("#hapus-button").click(function(){
-                   deleteFaskes(id)
+                   setFaskes(document.getElementById('nama').value, document.getElementById('no_telp').value, document.getElementById('email').value, document.getElementById('alamat').value)
                    window.location.href="./faskes.html";
                 });
 
                 $("#batal-kembali").click(function(){
                    window.location.href="./faskes.html";
                 });
-                document.getElementById('nama').value = event.nama
-                document.getElementById('penyelenggara').value = event.penyelenggara
-                document.getElementById('lokasi').value = event.lokasi
-                document.getElementById('link_url').value = event.link_url
+                document.getElementById('nama').value = faskes.nama
+                document.getElementById('no_telp').value = faskes.no_telp
+                document.getElementById('email').value = faskes.email
+                document.getElementById('alamat').value = faskes.alamat
             });
         </script>
     </head>
@@ -88,14 +83,14 @@
                         <h1 class="mt-4">Fasilitas Kesehatan</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Fasilitas Kesehatan</li>
-                            <li class="breadcrumb-item active">Detail Fasilitas Kesehatan</li>
+                            <li class="breadcrumb-item"><a href="faskes.html">Fasilitas Kesehatan</a></li>
+                            <li class="breadcrumb-item active">Tambah Data</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-header" style="font-size: 24px">
                                 <div class="row">
                                     <div class="col-4">
-                                        Detail Data Fasilitas Kesehatan
+                                        Tambah Data Fasilitas Kesehatan
                                     </div>
                                 </div>
                             </div>
@@ -191,43 +186,13 @@
                                             <img src="./assets/icon/terverifikasi.svg" style="height:90px">
                                         </div>
                                         <div>
-                                            Apakah anda yakin akan menyimpan data Event Donor Darah
+                                            Apakah anda yakin akan menyimpan data Fasilitas Kesehatan
                                         </div>
                                         </center>
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-outline-dark" data-dismiss="modal" id="verif-kembali">Tidak</button>
                                         <button type="button" class="btn btn-primary" id="simpan-button">Simpan</button>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                                <button type="button" id="batal-verifikasi-button" data-toggle="modal" data-target="#modalHapus" class="btn btn-outline-dark" style="width: 150px; border-radius: 4px; float: right;">
-                                    Hapus
-                                </button>
-                                <!-- Modal batal -->
-                                <div class="modal fade" id="modalHapus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                  <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                        </button>
-                                      </div>
-                                      <div class="modal-body" style="font-size: 16px">
-                                        <center>
-                                        <div>
-                                            <img src="./assets/icon/terverifikasi.svg" style="height:90px">
-                                        </div>
-                                        <div>
-                                            Apakah anda yakin akan menghapus data Event Donor Darah
-                                        </div>
-                                        </center>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-outline-dark" data-dismiss="modal" id="verif-kembali">Tidak</button>
-                                        <button type="button" class="btn btn-danger" id="hapus-button">Hapus</button>
                                       </div>
                                     </div>
                                   </div>
