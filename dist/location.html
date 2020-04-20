@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>App Si Donar</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <!-- END - include this script to access local storage function etc-->
+        <script>
+            $(document).ready(function(){
+                // Array.prototype.random = function () {
+                // return this[Math.floor((Math.random()*this.length))];
+                // }
+                // var randomArrayAddress = [
+                // "Jl. Medan Merdeka Selatan, Monas, Jakarta Pusat",
+                // "Jl. Medan Merdeka Utara, Monas, Jakarta Pusat",
+                // "Lapangan Parkir Monas, Jakarta Pusat",
+                // "Masjid Istiqlal, Jakarta Pusat",
+                // "Gereja Katedral, Jakarta Pusat",
+                // "Istana Merdeka, Jakarta Pusat",
+                // "Salemba UI, Jakarta Pusat",
+                // "Pasar Minggu, Jakarta Selatan",
+                // "Lenteng Agung, Jakarta Selatan",
+                // ]
+                $('.map').click(function (e) { //Offset mouse Position
+                    var marginTop = (e.pageY-40)+"px";
+                    var marginLeft = (e.pageX-17)+"px";
+                    document.getElementById("nav-loc").style.marginTop = marginTop;
+                    document.getElementById("nav-loc").style.marginLeft = marginLeft;
+                    // document.getElementById('alamat').value = randomArrayAddress.random();
+                });
+            });
+        </script>
+    </head>
+    <body style="background-color:#ffffff;">
+        <div class="map" style="height:100%; width:100%;background-image: url('./assets/img/big_map.png'); background-size: cover;">
+            <img src="./assets/icon/loc_icon.png" alt="nav" id="nav-loc" class="img-responsive">
+        </div>
+    </body>
+</html>

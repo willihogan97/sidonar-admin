@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Charts - SI Donar</title>
+        <title>Fasilitas Kesehatan - SI Donar</title>
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -28,8 +28,24 @@
                 });
 
                 $("#konfirmasi-map-button").click(function(){
-                   document.getElementById('alamat').value = document.getElementById('alamat_map').value
+                    if (document.getElementById('alamat_map').value != "") {
+                        document.getElementById('alamat').value = document.getElementById('alamat_map').value     
+                    }
                 });
+
+                var arr_alamat = ["Jl. Aku Anak Sehat No.", "Jl. Topi Saya Bundar No.", "Jl. Desaku yang Kucinta No."]
+                var arr_alamat_belakang = [", Jakarta Selatan, DKI Jakarta", ", Jakarta Pusat, DKI Jakarta", ", Jakarta Timur, DKI Jakarta", ", Jakarta Barat, DKI Jakarta", ", Jakarta Utara, DKI Jakarta"]
+                var random_no_alamat = Math.floor((Math.random() * 100) + 1);
+
+                var clickIframe = window.setInterval(checkFocus, 100);
+                var i = 0;
+                function checkFocus() {
+                  if(document.activeElement == document.getElementById("iframe-map")) {
+                    var jalan = arr_alamat[Math.floor(Math.random() * arr_alamat.length)] + random_no_alamat + arr_alamat_belakang[Math.floor(Math.random() * arr_alamat_belakang.length)]
+                    document.getElementById('alamat_map').value = jalan
+                    window.focus();
+                   }
+                }
             });
         </script>
     </head>
@@ -132,9 +148,9 @@
                                                   </div>
                                                   <div class="modal-body" style="font-size: 16px">
                                                     <center>
-                                                    <div>
-                                                        <img src="./assets/img/map.png" style="height:250px">
-                                                    </div>
+                                                        <div style="height: 400px; width: 100%">
+                                                            <iframe id="iframe-map" src="./location.html" class="map" style="height:400px; width:400px"></iframe>
+                                                        </div>
                                                     </center>
                                                   </div>
                                                   <div class="modal-footer" style="border-top: 0px; justify-content: center;">
