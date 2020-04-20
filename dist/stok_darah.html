@@ -16,6 +16,9 @@
         <!-- END - include this script to access local storage function etc-->
         <script>
             $(document).ready(function(){
+                if (checkNewNotif()) {
+                    document.getElementById('new_notif').hidden = false
+                }
                 var allStokDarah = getAllStokDarah();
                 for (var i = 0; i < allStokDarah.length; i++) {
                     $("#pengguna").append(`
@@ -55,9 +58,9 @@
                                 ><div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard</a
                             >
-                            <a class="nav-link" href="pengguna.html"
+                            <a class="nav-link" href="./pengguna.html"
                                 ><div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                                Pengguna</a
+                                Pengguna<img src="./assets/icon/new_notif.svg" style="margin-left: 24px" hidden id="new_notif"></a
                             ><a class="nav-link" href="event.html"
                                 ><div class="sb-nav-link-icon"><i class="fas fa-lightbulb"></i></div>
                                 Event Donor Darah</a

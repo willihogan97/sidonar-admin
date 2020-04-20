@@ -15,9 +15,10 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <!-- START - include this script to access local storage function etc-->
         <script src="./dist/js/scripts.js"></script>
+        <script src="./dist/js/pengguna.js"></script>
         <!-- END - include this script to access local storage function etc-->
         <script type="text/javascript">
-            $(document).ready(function(){                
+            $(document).ready(function(){
                 setAll()
                 allJumlah = getAllJumlah()
                 document.getElementById('jumlah_pengguna').innerText = allJumlah[0];
@@ -25,13 +26,44 @@
                 document.getElementById('jumlah_faskes').innerText = allJumlah[2];
                 document.getElementById('jumlah_donor').innerText = allJumlah[3];
                 document.getElementById('jumlah_stok').innerText = allJumlah[4];
-                setTimeout(setPenggunaTimer, 5000);
-                setTimeout(() => document.getElementById('new_notif').hidden = false
-                    , 5000);
-                setTimeout(() => allJumlah = getAllJumlah()
-                    , 5000);
-                setTimeout(() => document.getElementById('jumlah_pengguna').innerText = allJumlah[0]
-                    , 5000);
+                var allPengguna = getAllPengguna();
+                for (var i = 0; i < allPengguna.length; i++) {
+                    if (allPengguna[i].is_seen == false) {
+                        $("#pengguna-baru").append(`
+                            <a href="./dist/detail-pengguna.html?id=` +allPengguna[i].id+ `">
+                                <div class="pengguna-baru" style="padding: 6px;">
+                                    <div style="font-size: 14px; font-weight: bold">`
+                                    + allPengguna[i].nama +
+                                    `</div>
+                                    <div style="font-size: 12px">`
+                                    + allPengguna[i].alamat +
+                                    `</div>
+                                </div>
+                            </a>
+                        `);
+                    }
+                }
+                if (checkNewNotif()) {
+                    document.getElementById('new_notif').hidden = false
+                }
+                setTimeout(function() {
+                    pengguna = setPenggunaTimer()
+                    $("#pengguna-baru").append(`
+                        <a href="./dist/detail-pengguna.html?id=` +pengguna.id+ `">
+                            <div class="pengguna-baru" style="padding: 6px;">
+                                <div style="font-size: 14px; font-weight: bold">`
+                                + pengguna.nama +
+                                `</div>
+                                <div style="font-size: 12px">`
+                                + pengguna.alamat +
+                                `</div>
+                            </div>
+                        </a>
+                    `)
+                    document.getElementById('new_notif').hidden = false
+                    allJumlah = getAllJumlah()
+                    document.getElementById('jumlah_pengguna').innerText = allJumlah[0]
+                }, 5000)
             });
         </script>
     </head>
@@ -89,7 +121,7 @@
                         <div class="row">
                             <div class="col">
                                 <a href="./dist/pengguna.html">
-                                    <div class="card text-center text-white mb-4" style="background-color: #2D9CDB">
+                                    <div class="card text-center text-white mb-4 hover-card" style="background-color: #2D9CDB">
                                         <div class="card-body">
                                             <div>
                                                 <i class="fas fa-user-friends w3-xxxlarge"></i>
@@ -106,7 +138,7 @@
                             </div>
                             <div class="col">
                                 <a href="./dist/event.html">
-                                    <div class="card text-center text-white mb-4" style="background-color: #2D9CDB;">
+                                    <div class="card text-center text-white mb-4 hover-card" style="background-color: #2D9CDB;">
                                         <div class="card-body">
                                             <div>
                                                 <i class="fas fa-clipboard-check w3-xxxlarge"></i>
@@ -123,7 +155,7 @@
                             </div>
                             <div class="col">
                                 <a href="./dist/faskes.html">
-                                    <div class="card text-center text-white mb-4" style="background-color: #2D9CDB">
+                                    <div class="card text-center text-white mb-4 hover-card" style="background-color: #2D9CDB">
                                         <div class="card-body">
                                             <div>
                                                 <i class="fas fa-clinic-medical w3-xxxlarge"></i>
@@ -140,7 +172,7 @@
                             </div>
                             <div class="col">
                                 <a href="./dist/donor_darah.html">
-                                    <div class="card text-center text-white mb-4" style="background-color: #2D9CDB">
+                                    <div class="card text-center text-white mb-4 hover-card" style="background-color: #2D9CDB">
                                         <div class="card-body">
                                             <div>
                                                 <i class="fas fa-list-alt w3-xxxlarge"></i>
@@ -157,7 +189,7 @@
                             </div>
                             <div class="col">
                                 <a href="./dist/stok_darah.html">
-                                    <div class="card text-center text-white mb-4" style="background-color: #2D9CDB">
+                                    <div class="card text-center text-white mb-4 hover-card" style="background-color: #2D9CDB">
                                         <div class="card-body">
                                             <div>
                                                 <i class="fas fa-tint w3-xxxlarge"></i>
@@ -174,6 +206,13 @@
                             </a>
                         </div>
                         <div class="row">
+                            <div class="col-xl-3">
+                                <div class="card mb-4">
+                                    <div class="card-header">Pengguna Baru</div>
+                                    <div class="card-body" id="pengguna-baru">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </main>

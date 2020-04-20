@@ -15,6 +15,9 @@
         <!-- END - include this script to access local storage function etc-->
         <script type="text/javascript">
             $(document).ready(function(){
+                if (checkNewNotif()) {
+                    document.getElementById('new_notif').hidden = false
+                }
                 const urlParams = new URLSearchParams(window.location.search);
                 var id = urlParams.get("id")
                 var faskes = getFaskes(id)
@@ -30,6 +33,12 @@
                 document.getElementById('no_telp').value = faskes.no_telp
                 document.getElementById('email').value = faskes.email
                 document.getElementById('alamat').value = faskes.alamat
+
+                $("#konfirmasi-map-button").click(function(){
+                    if (document.getElementById('alamat_map').value != "") {
+                        document.getElementById('alamat').value = document.getElementById('alamat_map').value     
+                    }
+                });
             });
         </script>
     </head>
@@ -57,9 +66,9 @@
                                 ><div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard</a
                             >
-                            <a class="nav-link" href="pengguna.html"
+                            <a class="nav-link" href="./pengguna.html"
                                 ><div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                                Pengguna</a
+                                Pengguna<img src="./assets/icon/new_notif.svg" style="margin-left: 24px" hidden id="new_notif"></a
                             ><a class="nav-link" href="event.html"
                                 ><div class="sb-nav-link-icon"><i class="fas fa-lightbulb"></i></div>
                                 Event Donor Darah</a
@@ -117,7 +126,32 @@
                                     <div class="col-6">
                                         <div style="margin-bottom: 16px" class="col">
                                             <label style="float: left" class="judul-profile" for="exampleInputEmail1">Alamat</label>
-                                            <input type="text" class="form-control" id="alamat" aria-describedby="emailHelp" >
+                                            <input type="text" class="form-control" id="alamat" aria-describedby="emailHelp" data-toggle="modal" data-target="#modalMap">
+                                            <!-- modal -->
+                                            <div class="modal fade" id="modalMap" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                              <div class="modal-dialog modal-dialog-centered" role="document" style="    max-width: 700px;">
+                                                <div class="modal-content">
+                                                  <div class="modal-header" style=" border-bottom: 0px">
+                                                    <div class="input-group input-group-sm mb-3" style="margin-top: 16px">
+                                                      <div class="input-group-prepend">
+                                                        <span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-chevron-left"></i></span>
+                                                      </div>
+                                                      <input type="text" class="form-control" aria-label="Sizing example input" id="alamat_map" aria-describedby="inputGroup-sizing-default" placeholder="Cari Alamat">
+                                                    </div>
+                                                  </div>
+                                                  <div class="modal-body" style="font-size: 16px">
+                                                    <center>
+                                                    <div>
+                                                        <img src="./assets/img/map.png" style="height:250px">
+                                                    </div>
+                                                    </center>
+                                                  </div>
+                                                  <div class="modal-footer" style="border-top: 0px; justify-content: center;">
+                                                    <button type="button" class="btn btn-primary" id="konfirmasi-map-button" style="width: 40%;" data-dismiss="modal">Konfirmasi</button>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
                                         </div>
                                         <div class="col">
                                             <div class="row">

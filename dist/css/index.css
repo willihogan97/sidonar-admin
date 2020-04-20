@@ -2,8 +2,16 @@ a {
 	text-decoration:none !important;
 }
 
-.card:hover {
-	transition: background-color 0.7s ease;
+.hover-card:hover {
+	transition: background-color 0.7s ease, box-shadow .3s;
 	background-color: #EB5757 !important;
+	box-shadow: 0 0 8px rgba(33,33,33,.5);
+}
 
+.pengguna-baru:hover {
+	box-shadow: 0 0 8px rgba(33,33,33,.5);
+	transition: box-shadow .3s;
+	border-radius: 8px;
+	cursor: pointer;
+	color: black;
 }

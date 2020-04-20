@@ -77,3 +77,22 @@ function batalVerifikasiPengguna(id) {
     }
     localStorage.setItem("pengguna", JSON.stringify(allPengguna));
 }
+
+function setIsSeen() {
+    allPengguna = JSON.parse(localStorage.getItem("pengguna"))
+    for (var i = allPengguna.length - 1; i >= 0; i--) {
+        allPengguna[i].is_seen = true
+    }
+    localStorage.setItem("pengguna", JSON.stringify(allPengguna));
+}
+
+function setIsSeenId(id) {
+    allPengguna = JSON.parse(localStorage.getItem("pengguna"))
+    for (var i = allPengguna.length - 1; i >= 0; i--) {
+        if (allPengguna[i].id == id) {
+            allPengguna[i].is_seen = true;
+            break;
+        }
+    }
+    localStorage.setItem("pengguna", JSON.stringify(allPengguna));
+}

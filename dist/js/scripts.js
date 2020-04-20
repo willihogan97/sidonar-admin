@@ -9,7 +9,19 @@
     // Add active state to sidbar nav links
     var path = window.location.href; // because the 'href' property of the DOM element is the absolute path
         $("#layoutSidenav_nav .sb-sidenav a.nav-link").each(function() {
-            if (this.href === path) {
+            var hrefBaru = this.href.substring(this.href.lastIndexOf('/') + 1)
+            var pathBaru = path.substring(this.href.lastIndexOf('/') + 1)
+            var indexPath = pathBaru.indexOf('?')
+            if (indexPath > 0 ) {
+                pathBaru = pathBaru.substring(0, pathBaru.indexOf('?'))    
+            }
+            if (hrefBaru === pathBaru) {
+                $(this).addClass("active");
+            }
+            if (("tambah-" + hrefBaru) === pathBaru) {
+                $(this).addClass("active");
+            }
+            if (("detail-" + hrefBaru) === pathBaru) {
                 $(this).addClass("active");
             }
         });
@@ -21,6 +33,24 @@
     });
 })(jQuery);
 
+function removeParam(key, sourceURL) {
+    var rtn = sourceURL.split("?")[0],
+        param,
+        params_arr = [],
+        queryString = (sourceURL.indexOf("?") !== -1) ? sourceURL.split("?")[1] : "";
+    if (queryString !== "") {
+        params_arr = queryString.split("&");
+        for (var i = params_arr.length - 1; i >= 0; i -= 1) {
+            param = params_arr[i].split("=")[0];
+            if (param === key) {
+                params_arr.splice(i, 1);
+            }
+        }
+        rtn = rtn + "?" + params_arr.join("&");
+    }
+    return rtn;
+}
+
 function setPenggunaTimer() {
     pengguna = JSON.parse(localStorage.getItem("pengguna"));
     lastID = localStorage.getItem("lastPenggunaID");
@@ -30,38 +60,49 @@ function setPenggunaTimer() {
     } else {
         lastID = parseInt(lastID)
     }
-    if (pengguna == null) {
-        pengguna = [];
-        penggunaNew = {
-            "id": lastID + 1,
-            "nama": "William Adjandra",
-            "gol_darah": "O",
-            "rhesus": "+",
-            "email": "william@email.com",
-            "is_verified": false,
-            "alamat": "Jln. asdasd",
-            "no_telp": "08967123123",
-            "no_telp_darurat": "08967123123",
-            "tgl_lahir": "11/07/97"
-        };
-        pengguna.push(penggunaNew);
+    arr_nama = ["Marcel", "Intan", "Fahmi", "Bisma", "Harry", "Larry"]
+    arr_gol = ["A", "B", "AB", "O"]
+    arr_rhesus = ["+", "-"]
+    arr_alamat = ["Jl. Aku Anak Sehat No.", "Jl. Topi Saya Bundar No.", "Jl. Desaku yang Kucinta No."]
+    arr_alamat_belakang = [", Jakarta Selatan, DKI Jakarta", ", Jakarta Pusat, DKI Jakarta", ", Jakarta Timur, DKI Jakarta", ", Jakarta Barat, DKI Jakarta", ", Jakarta Utara, DKI Jakarta"]
+    random_no_alamat = Math.floor((Math.random() * 100) + 1);
+    jalan = arr_alamat[Math.floor(Math.random() * arr_alamat.length)] + random_no_alamat + arr_alamat_belakang[Math.floor(Math.random() * arr_alamat_belakang.length)]
+    no_telp = "08" + Math.floor((Math.random() * 100000000) + 1);
+    no_telp_darurat = "08" + Math.floor((Math.random() * 100000000) + 1);
+    var date = randomDate(new Date(1970, 0, 1), new Date(2000, 0 ,1));
+    tgl_lahir = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear()
+    random_nama = arr_nama[Math.floor(Math.random() * arr_nama.length)];
+    random_gol = arr_gol[Math.floor(Math.random() * arr_gol.length)];
+    random_rhesus = arr_rhesus[Math.floor(Math.random() * arr_rhesus.length)];
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    email = ""
+    for ( var i = 0; i < 8; i++ ) {
+        email += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
+    email += "@email.com"
     penggunaNew = {
         "id": lastID + 1,
-        "nama": "William Adjandra",
-        "gol_darah": "AB",
-        "rhesus": "-",
-        "email": "william@email.com",
+        "nama": random_nama,
+        "gol_darah": random_gol,
+        "rhesus": random_rhesus,
+        "email": email,
         "is_verified": false,
-        "alamat": "Jln. asdasd",
-        "no_telp": "08967123123",
-        "no_telp_darurat": "08967123123",
-        "tgl_lahir": "11/07/97"
+        "alamat": jalan,
+        "no_telp": no_telp,
+        "no_telp_darurat": no_telp_darurat,
+        "tgl_lahir": tgl_lahir,
+        "is_seen": false
     };
     pengguna.push(penggunaNew);
     localStorage.setItem("hasNewPengguna", true);
     localStorage.setItem("lastPenggunaID", lastID+1);
     localStorage.setItem("pengguna", JSON.stringify(pengguna));
+    return penggunaNew
+}
+
+function randomDate(start, end) {
+  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 }
 
 function setAll() {
@@ -69,7 +110,7 @@ function setAll() {
         allPengguna = []
         penggunaNew = {
             "id": 1,
-            "nama": "William Adjandra",
+            "nama": "William",
             "gol_darah": "O",
             "rhesus": "+",
             "email": "william@email.com",
@@ -77,13 +118,14 @@ function setAll() {
             "alamat": "Jl. Topi Saya Bundar No.8, Jakarta Selatan, DKI Jakarta",
             "no_telp": "08987654321",
             "no_telp_darurat": "08987654322",
-            "tgl_lahir": "11/07/97",
-            "gambar_path": "william.jpg"
+            "tgl_lahir": "11/07/1997",
+            "gambar_path": "william.jpg",
+            "is_seen": true
         };
         allPengguna.push(penggunaNew)
         penggunaNew = {
             "id": 2,
-            "nama": "Yosua Bisma",
+            "nama": "Yosua",
             "gol_darah": "A",
             "rhesus": "+",
             "email": "yosua@email.com",
@@ -91,8 +133,9 @@ function setAll() {
             "alamat": "Jl. Aku Anak Sehat No.8, Jakarta Selatan, DKI Jakarta",
             "no_telp": "08123456789",
             "no_telp_darurat": "08123456799",
-            "tgl_lahir": "15/10/97",
-            "gambar_path": "yosua.jpg"
+            "tgl_lahir": "15/10/1997",
+            "gambar_path": "yosua.jpg",
+            "is_seen": true
         };
         allPengguna.push(penggunaNew)
         localStorage.setItem("lastPenggunaID", 2);
@@ -223,4 +266,14 @@ function getAllJumlah() {
     allJumlah.push(panjang_donor)
     allJumlah.push(total_stok + "")
     return allJumlah
+}
+
+function checkNewNotif() {
+    pengguna = JSON.parse(localStorage.getItem("pengguna"))
+    for (var i = pengguna.length - 1; i >= 0; i--) {
+        if (pengguna[i].is_seen == false) {
+            return true
+        }
+    }
+    return false
 }
