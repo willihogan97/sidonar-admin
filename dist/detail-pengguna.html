@@ -23,6 +23,18 @@
                 }
                 var pengguna = getPengguna(id)
                 
+                if (pengguna.is_verified == null) {
+                    document.getElementById('belum_terverifikasi').hidden = false
+                    document.getElementById('verifikasi-button').hidden = false
+                    document.getElementById('batal-verifikasi-button').hidden = false
+                } else if (!pengguna.is_verified) {
+                    document.getElementById('gagal_terverifikasi').hidden = false
+                    document.getElementById('verifikasi-button').hidden = false
+                    document.getElementById('batal-verifikasi-button').hidden = false
+                } else {
+                    document.getElementById('terverifikasi').hidden = false
+                }
+
                 $("#delete-button").click(function(){
                    deletePengguna(id)
                    window.location.href="./pengguna.html";
@@ -125,10 +137,15 @@
                         <div class="card mb-4">
                             <div class="card-header" style="font-size: 24px">
                                 <div class="row">
-                                    <div class="col-4">
+                                    <div class="col-2">
                                         Detail Data Pengguna
                                     </div>
-                                    <div class="col-8">
+                                    <div class="col-1">
+                                        <img src="./assets/icon/terverifikasi.svg" style="height: 35px" id="terverifikasi" hidden>
+                                        <img src="./assets/icon/belum_terverifikasi.svg" style="height: 35px" id="belum_terverifikasi" hidden>
+                                        <img src="./assets/icon/cancel.svg" style="height: 35px" id="gagal_terverifikasi" hidden>
+                                    </div>
+                                    <div class="col-9">
                                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" style="width: 150px; border-radius: 4px; float: right;">
                                             Hapus
                                         </button>
@@ -225,7 +242,7 @@
                                 </div>
                             </div>
                             <div class="card-footer small text-muted">
-                                <button type="button" id="verifikasi-button" data-toggle="modal" data-target="#modalVerif" class="btn btn-primary" style="width: 150px; border-radius: 4px; margin-right: 16px">
+                                <button type="button" id="verifikasi-button" data-toggle="modal" data-target="#modalVerif" class="btn btn-primary" style="width: 150px; border-radius: 4px; margin-right: 16px" hidden>
                                     Verifikasi
                                 </button>
                                 <!-- Modal verif -->
@@ -255,8 +272,8 @@
                                     </div>
                                   </div>
                                 </div>
-                                <button type="button" id="batal-verifikasi-button" data-toggle="modal" data-target="#modalTidakVerif" class="btn btn-outline-dark" style="width: 150px; border-radius: 4px;">
-                                    Lengkapi Data
+                                <button type="button" id="batal-verifikasi-button" data-toggle="modal" data-target="#modalTidakVerif" class="btn btn-outline-dark" style="width: 150px; border-radius: 4px;" hidden>
+                                    Gagal Verifikasi
                                 </button>
                                 <!-- Modal batal -->
                                 <div class="modal fade" id="modalTidakVerif" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
