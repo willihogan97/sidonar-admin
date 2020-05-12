@@ -78,6 +78,13 @@
                     document.getElementById('foto').value = "Avatar.jpg"
                 }
                 document.getElementById('foto-ktp').value = "KTP.jpg"
+                
+                for (var i = 1; i < pengguna.rating + 1; i++) {
+                    var stringid = "rating-" + i
+                    var element = document.getElementById(stringid);
+                    element.classList.add("checked-rating");
+                }
+
             });
         </script>
     </head>
@@ -233,8 +240,20 @@
                                     </div>
                                     <div class="col-4">
                                         <div style="margin-bottom: 16px">
+                                            <div>
+                                                <label class="rating">Rating</label>
+                                                <div>
+                                                    <span id="rating-1" class="fa fa-star"></span>
+                                                    <span id="rating-2" class="fa fa-star"></span>
+                                                    <span id="rating-3" class="fa fa-star"></span>
+                                                    <span id="rating-4" class="fa fa-star"></span>
+                                                    <span id="rating-5" class="fa fa-star"></span>
+                                                </div>
+                                            </div>    
+                                        </div>
+                                        <div style="margin-bottom: 16px">
                                             <center>
-                                                <img src="./assets/icon/avatar.svg" alt="take_photo" id="foto-src" style="width: 60%;">
+                                                <img src="./assets/icon/avatar.svg" alt="take_photo" id="foto-src" style="width: 60%; max-height: 275px">
                                                 <input type="text" class="form-control" id="foto" aria-describedby="emailHelp" disabled style="margin-top: 16px">
                                             </center>
                                         </div>

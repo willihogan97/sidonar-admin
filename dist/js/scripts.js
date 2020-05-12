@@ -74,6 +74,7 @@ function setPenggunaTimer() {
     random_nama = arr_nama[Math.floor(Math.random() * arr_nama.length)];
     random_gol = arr_gol[Math.floor(Math.random() * arr_gol.length)];
     random_rhesus = arr_rhesus[Math.floor(Math.random() * arr_rhesus.length)];
+    random_rating =  Math.floor((Math.random() * 5) + 1);
     var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var charactersLength = characters.length;
     email = ""
@@ -92,7 +93,8 @@ function setPenggunaTimer() {
         "no_telp": no_telp,
         "no_telp_darurat": no_telp_darurat,
         "tgl_lahir": tgl_lahir,
-        "is_seen": false
+        "is_seen": false,
+        "rating": random_rating
     };
     pengguna.push(penggunaNew);
     localStorage.setItem("hasNewPengguna", true);
@@ -120,7 +122,8 @@ function setAll() {
             "no_telp_darurat": "08987654322",
             "tgl_lahir": "11/07/1997",
             "gambar_path": "william.jpg",
-            "is_seen": true
+            "is_seen": true,
+            "rating": 4
         };
         allPengguna.push(penggunaNew)
         penggunaNew = {
@@ -135,7 +138,8 @@ function setAll() {
             "no_telp_darurat": "08123456799",
             "tgl_lahir": "15/10/1997",
             "gambar_path": "yosua.jpg",
-            "is_seen": true
+            "is_seen": true,
+            "rating": 5
         };
         allPengguna.push(penggunaNew)
         localStorage.setItem("lastPenggunaID", 2);
@@ -223,7 +227,9 @@ function setAll() {
             "faskes": "PMI Pusat",
             "alamat_pendonor": "Jl. Kramat Raya No.90 DKI Jakarta",
             "alamat_resipien": "Jl. Gunung Sahari Raya No.47 DKI Jakarta",
-            "gambar_path": "rossi.jpeg"
+            "gambar_path": "rossi.jpeg",
+            "tanggal_appointment": "24/04/2020",
+            "jam_appointment": "22:00 WIB"
         }
         all_donor.push(donor);
         donor = {
@@ -242,7 +248,9 @@ function setAll() {
             "faskes": "PMI Jakarta Selatan",
             "alamat_pendonor": "Jl. Topi Saya Lancip No.100, Jakarta Selatan, DKI Jakarta",
             "alamat_resipien": "Jl. Topi Saya Bundar No.65B, Jakarta Selatan, DKI Jakarta",
-            "gambar_path": "operasi.jpg"
+            "gambar_path": "operasi.jpg",
+            "tanggal_appointment": "20/04/2020",
+            "jam_appointment": "10:00 WIB"
         }
         all_donor.push(donor);
         localStorage.setItem("donor", JSON.stringify(all_donor));

@@ -35,6 +35,8 @@
                 document.getElementById('rhesus').value = donor.rhesus
                 document.getElementById('faskes').value = donor.faskes
                 document.getElementById('deskripsi').value = donor.deskripsi
+                document.getElementById('tanggal_appointment').value = donor.tanggal_appointment
+                document.getElementById('jam_appointment').value = donor.jam_appointment
                 if (donor.gambar_path != null) {
                     $("#foto-src").attr("src", "./assets/img/need_blood/" + donor.gambar_path);
                     document.getElementById('foto').value = donor.gambar_path
@@ -168,9 +170,14 @@
                                                 </center>
                                             </div>
                                             <div style="margin-bottom: 16px">
-                                                <div>
-                                                    <label class="judul-profile" for="exampleInputEmail1">Nama Faskes</label>
-                                                    <input type="text" class="form-control" id="faskes" aria-describedby="emailHelp" disabled>
+                                                <label class="judul-profile" for="exampleInputEmail1">Tanggal dan Jam Appointment</label>
+                                                <div class="row">
+                                                    <div class="col-8">
+                                                        <input type="text" class="form-control" id="tanggal_appointment" aria-describedby="emailHelp" disabled>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <input type="text" class="form-control" id="jam_appointment" aria-describedby="emailHelp" disabled>
+                                                    </div>    
                                                 </div>    
                                             </div>
                                         </div>
@@ -194,9 +201,15 @@
                                                 <input type="text" class="form-control" id="telp_pendonor" aria-describedby="emailHelp" disabled>
                                             </div>    
                                         </div>
-                                        <div class="col">
+                                        <div style="margin-bottom: 16px" class="col">
                                             <label style="float: left" class="judul-profile" for="exampleInputEmail1">Alamat Pendonor</label>
-                                            <textarea class="form-control" id="alamat_pendonor" rows="4" disabled></textarea>
+                                            <textarea class="form-control" id="alamat_pendonor" rows="1" disabled></textarea>
+                                        </div>
+                                        <div class="col">
+                                            <div>
+                                                <label class="judul-profile" for="exampleInputEmail1">Nama Faskes</label>
+                                                <input type="text" class="form-control" id="faskes" aria-describedby="emailHelp" disabled>
+                                            </div>    
                                         </div>
                                     </div>
                                 </div>
